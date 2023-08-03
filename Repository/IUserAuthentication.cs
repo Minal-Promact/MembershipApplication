@@ -6,7 +6,10 @@ namespace MembershipApplication.Repository
     {
         Task<Status> RegistrationAsync(Registration registration);        
         Task<Status> LoginAsync(LoginModel loginModel);
-        Task<Status> LogoutAsync();
+        Task LogoutAsync();
+        Task<Status> ResetPassword(ResetPassword resetPassword);
+        Task<Status> ForgotPassword(Registration registration);
+        
         
     }
 }
