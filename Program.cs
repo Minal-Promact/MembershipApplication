@@ -18,6 +18,8 @@ builder.Services.AddDbContext<EFDataContext>(options =>
 builder.Services.AddIdentity<ApplicationUser, ApplicationRole>()
             .AddEntityFrameworkStores<EFDataContext>()
             .AddDefaultTokenProviders();
+builder.Services.Configure<DataProtectionTokenProviderOptions>(opt =>
+   opt.TokenLifespan = TimeSpan.FromHours(2));
 builder.Services.AddScoped<IUserAuthentication,UserAuthentication>();
 var app = builder.Build();
 
