@@ -20,7 +20,7 @@ namespace MembershipApplication.Controllers
         public async Task<IActionResult> PostAsync(Registration registration)
         {
             var status = await _userAuthentication.RegistrationAsync(registration);
-            return (IActionResult)status;
+            return RedirectToAction();
         }
 
         
