@@ -20,6 +20,14 @@ builder.Services.AddIdentity<ApplicationUser, ApplicationRole>()
             .AddDefaultTokenProviders();
 builder.Services.Configure<DataProtectionTokenProviderOptions>(opt =>
    opt.TokenLifespan = TimeSpan.FromHours(2));
+builder.Services.Configure<IdentityOptions>(options =>
+{
+    // Default Password settings.
+    options.Password.RequireDigit = false;
+    options.Password.RequireLowercase = false;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequireUppercase = false;
+});
 builder.Services.AddScoped<IUserAuthentication,UserAuthentication>();
 var app = builder.Build();
 
