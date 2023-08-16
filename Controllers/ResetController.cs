@@ -20,7 +20,7 @@ namespace MembershipApplication.Controllers
         public async Task<IActionResult> ResetAsync(ResetPassword resetPassword)
         {
             var status = await _userAuthentication.ResetPassword(resetPassword);
-            return (IActionResult)status;
+            RedirectToAction();
         }
     }
 }
