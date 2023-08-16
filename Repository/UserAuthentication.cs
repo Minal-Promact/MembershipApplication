@@ -68,6 +68,9 @@ namespace MembershipApplication.Repository
             {
                 int i = 1;
                 var status = new Status();
+
+                
+
                 var userExists = await _userManager.FindByEmailAsync(registration.UserName);
                 if (userExists != null)
                 {
@@ -108,11 +111,20 @@ namespace MembershipApplication.Repository
                 //Get UserId
                 Int64 userId = Convert.ToInt64(await _userManager.GetUserIdAsync(user));
 
+                ApplicationUser a = await _userManager.FindByEmailAsync(registration.UserName);
+                //check role is assigned to user
+                bool result = await _userManager.IsInRoleAsync(a, "SUPER_ADMIN");
+
+
                 //check login 
                 if (i == 1)
                 {
                     var status1 = new Status();
                     var res1 = await _signInManager.PasswordSignInAsync(registration.UserName, registration.Password, true, false);
+                    //Get Record by userId
+                    ApplicationUser valUser = await _userManager.FindByIdAsync("2");
+                    //Check IsLockedOut
+                    bool val = await _userManager.IsLockedOutAsync(valUser);
                     if (res1.Succeeded)
                     {
                         status1.StatusCode = 1;
@@ -122,16 +134,9 @@ namespace MembershipApplication.Repository
                     status1.StatusCode = 0;
                     status1.Message = "Invalid Username and Password..";
                     return status1;
-                }
+                }             
 
-                // Reset Password
-
-                if (i == 2)
-                {
-                    //var users = ExecuteSqlQuery.GetAllMyAspNetUsersById($"select * from my_aspnet_users where id= {userObj.UserID}");
-
-
-                }
+                
                 //forgot password
                 if (i == 3)
                 {
